@@ -11,10 +11,43 @@ function PassageView(object, $container) {
 	// TODO?: make this more abstracted / generalized
 	this.prescript = object.prescript;
 	this.postscript = object.postscript;
+	this.$view = $(this.body);
+	this.show = function() {
+		this.$view.show();
+	};
+	this.hide = function() {
+		this.$view.hide();
+	};
+
 	eval(this.prescript);
-	$container.append(this.body);
+
+	var me = this;
+	this.$view.find('[data-link]').each(function(index, el) {
+		var link = $(el).data('link');
+		$(el).on('click', function(e) {
+			e.preventDefault();
+			me.hide();
+			console.log(passageViewMap);
+			console.log(passageViewMap[link]);
+			if (passageViewMap[link]) {
+				passageViewMap[link].show();
+			}
+		});
+	});
+
+	// this.$view.hide();
+
+	$container.append(this.$view);
 	eval(this.postscript);
 }
+PassageView.prototype.behaviors = {
+	startShow: function() {
+
+	},
+	customStartShow: function() {
+
+	}
+};
 
 function constructPassageViewMap(object) {
 	window.passageViewMap = {};

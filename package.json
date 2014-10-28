@@ -17,6 +17,8 @@
     "lodash": "^2.4.1",
     "marked": "^0.3.2",
     "minimist": "^1.1.0",
+    "node-dir": "^0.1.6",
+    "readdir": "0.0.13",
     "recursive-readdir": "^1.2.0"
   },
   "devDependencies": {}
