@@ -2,7 +2,7 @@
 
 This is a WIP repo for an interactive fiction story-construction toolkit similar to [Twine](http://twinery.org/). It is currently *not* ready for production (or even beta) use, but feel free to look through the code I have currently.
 
-**the below instructions are my personal notes and not usable!**
+**the below instructions are my personal notes and probably not useful for anyone else!**
 
 ---
 
