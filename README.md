@@ -1,3 +1,38 @@
+# Thread
+
+This is a WIP repo for an interactive fiction story-construction toolkit similar to [Twine](http://twinery.org/). It is currently *not* ready for production (or even beta) use, but feel free to look through the code I have currently.
+
+**the below instructions are my personal notes and not usable!**
+
+---
+
+# my instructions for myself
+
+PASSAGE OBJECT BUILDER
+
+1. It takes in a series of JS objects that contain body content and metadata. These objects can come from another application, or be read directly from a file.
+2. After receiving that object, it turns special tag contents into callbacks on the object.
+
+TREE BUILDER
+
+1. It represents passage objects in a node tree structure.
+2. Nodes can have a type of "passage" or "folder" - folders hold passages.
+
+FILE LOADER
+
+Can load individual files
+1. Can load an entire directive recursively and turn each .md into story objects.
+2. Uses tree builder and passage object builder to create an entire story object
+
+TEMPLATE BUILDER
+
+1. Takes in a default template
+2. Injects stuff into it
+
+TODO: resolve id, title, and filename conflicts
+id NOT assigned during front-matter parsing stage
+(should happen at composer stage)
+
 # Templates
 
 A template is a collection of files that Thread injects with scripts and assets in order to build your Thread story. Templates define the way that your story looks, and can also have additional features in addition to core Thread features. You can use any of Thread's default templates, download community-created templates, augment existing templates, or create your own!

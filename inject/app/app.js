@@ -35,7 +35,12 @@ function PassageView(object, $container) {
 		});
 	});
 
-	// this.$view.hide();
+	if (!this.attributes.start) {
+		this.$view.hide();
+	} else {
+		console.log(this.attributes);
+	}
+
 
 	$container.append(this.$view);
 	eval(this.postscript);
