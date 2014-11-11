@@ -130,6 +130,20 @@ describe('passage/composer.js', function() {
 			expect(pObject).to.have.key('postscript');
 			expect(pObject).to.have.key('prescript');
 			expect(pObject).to.have.key('body');
-		})
+		});
+		it('should extend attributes properly', function() {
+			expect(pObject.attributes.title).to.be(attributes.title);
+		});
+		it('should strip out prescript tags properly', function() {
+			expect(pObject.body.indexOf('<prescript>')).to.be(-1);
+			expect(pObject.body.indexOf('</prescript>')).to.be(-1);
+			expect(pObject.prescript[0]).to.be("console.log('I\\'m executed beforehand!');");
+		});
+		it('should strip out postcript tags properly', function() {
+			expect(pObject.body.indexOf('<postscript>')).to.be(-1);
+			expect(pObject.body.indexOf('</postscript>')).to.be(-1);
+			expect(pObject.postscript[0]).to.be("\nconsole.log('I\\'m loaded afterwards!');\n");
+			expect(pObject.postscript[1]).to.be("\nconsole.log('Me too!');\n");
+		});
 	});
 })

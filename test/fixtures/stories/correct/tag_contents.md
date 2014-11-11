@@ -1,3 +1,7 @@
+---
+title: Tag contents title
+---
+
 # Test
 
 <prescript>console.log('I\'m executed beforehand!');</prescript>
