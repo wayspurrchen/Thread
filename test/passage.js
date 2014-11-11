@@ -46,14 +46,34 @@ describe('passage/util.js', function() {
 	});
 
 	describe('#getTagContents', function() {
+		var prescript;
+		var postscript;
+		beforeEach(function() {
+			prescript  = passageUtil.getTagContents('prescript', contents);
+			postscript = passageUtil.getTagContents('postscript', contents);
+		});
+
 		it('returns contents for each instance of a tag', function() {
-			var postscript = passageUtil.getTagContents('postscript', contents);
+			expect(prescript).to.have.length(1);
 			expect(postscript).to.have.length(2);
 		});
 		it('returns stripped and full contents', function() {
-			var prescript  = passageUtil.getTagContents('prescript', contents);
 			expect(prescript[0]).to.have.key('stripped');
 			expect(prescript[0]).to.have.key('full');
+			expect(postscript[0]).to.have.key('stripped');
+			expect(postscript[0]).to.have.key('full');
+			expect(postscript[1]).to.have.key('stripped');
+			expect(postscript[1]).to.have.key('full');
+		});
+		it('properly returns stripped contents', function() {
+			expect(prescript[0].stripped).to.be("console.log('I\\'m executed beforehand!');");
+			expect(postscript[0].stripped).to.be("\nconsole.log('I\\'m loaded afterwards!');\n");
+			expect(postscript[1].stripped).to.be("\nconsole.log('Me too!');\n");
+		});
+		it('properly returns full contents', function() {
+			expect(prescript[0].full).to.be("<prescript>console.log('I\\'m executed beforehand!');</prescript>");
+			expect(postscript[0].full).to.be("<postscript>\nconsole.log('I\\'m loaded afterwards!');\n</postscript>");
+			expect(postscript[1].full).to.be("<postscript>\nconsole.log('Me too!');\n</postscript>");
 		});
 	});
 
@@ -88,21 +108,28 @@ describe('passage/util.js', function() {
 // 3. 
 
 describe('passage/composer.js', function() {
-	var contents = undefined;
-	var attributes = undefined;
-
-	beforeEach(function(done) {
-		console.log('hllo')
-		file.loadFile(correctStoryDir + '/tag_contents.md')
-			.then(function(result) {
-				console.log(result);
-				contents = result;
-				attributes = file.parseFrontMatter(contents).attributes;
-				done();
-			});
-	});
 
 	describe('#generatePassageObject', function() {
-		composer.generatePassageObject(contents, attributes);
+		var contents = undefined;
+		var attributes = undefined;
+		var pObject = undefined;
+
+		beforeEach(function(done) {
+			file.loadFile(correctStoryDir + '/tag_contents.md')
+				.then(function(result) {
+					contents = result;
+					attributes = file.parseFrontMatter(contents).attributes;
+					pObject = composer.generatePassageObject(contents, attributes);
+					done();
+				});
+		});
+
+
+		it('should have proper keys', function() {
+			expect(pObject).to.have.key('attributes');
+			expect(pObject).to.have.key('postscript');
+			expect(pObject).to.have.key('prescript');
+			expect(pObject).to.have.key('body');
+		})
 	});
 })

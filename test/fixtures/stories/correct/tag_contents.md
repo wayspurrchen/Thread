@@ -1,8 +1,6 @@
 # Test
 
-<prescript>
-console.log('I\'m executed beforehand!');
-</prescript>
+<prescript>console.log('I\'m executed beforehand!');</prescript>
 
 File contents.
 
